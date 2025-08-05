@@ -12,6 +12,6 @@ async def handle_client(websocket):
 async def main():
     async with websockets.serve(handle_client, "localhost", 12345):
         print("Server is running on ws://localhost:12345")
-        await asyncio.Future()
+        await asyncio.Future() # Run this forever. Ctrl-C breaks this
 
 asyncio.run(main())
