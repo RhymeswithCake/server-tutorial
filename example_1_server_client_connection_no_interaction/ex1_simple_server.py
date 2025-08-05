@@ -6,7 +6,8 @@ import websockets # this library lets you connect between servers and clients us
 # The async command is always paired with the await command.
 # How this works: An async function runs until the await command, then it waits to get a response. While this is happening
 # other functions are free to run and do their thing. If this wasn't the case, your whole program would pause here and wait 
-# and nothing else would update or work at the same time.
+# and nothing else would update or work at the same time, or your function would continue without receiving anything if it wasn't
+# time perfectly.
 async def handle_client(websocket):
     # The websocket object thats passed in here (above, in the handle_client function) is your live connection. Since it's an object it has dot notation handles on it
     # that can be used to interrogate or interact with the live connection. 
