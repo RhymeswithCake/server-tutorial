@@ -23,7 +23,7 @@ async def main():
     # Here two python thingies are used, one is async the other is the 'with' command.
     # async means the same as above, we're going to wait at the await command in this function.
     # the with command is a context manager, which means that after the connection ends for any reason, it will be closed out properly.
-    # if you didnt have this with command here, you would have to manually close your connection, and if your program crashed you may end
+    # if you didn't have this with command here, you would have to manually close your connection, and if your program crashed you may end
     # up with a persistently open port on your computer that anyone who knew the address to could access until you closed it. 
     # Depending on how secure you are, an infiltrator may not do much damage, but still this helps with best practice.
     async with websockets.serve(handle_client, "localhost", 12345):
