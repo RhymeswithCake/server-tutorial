@@ -30,7 +30,7 @@ async def main():
         # The above line line says, asynchronously, open a websocket connection using the handle_client function to deal with input,
         # at localhost on port 12345. Which gets printed below.
         print("Server is running on ws://localhost:12345")
-        await asyncio.Future()  # Run this forever. (until you shut it down or end it, at which point the context manager will close your connection)
+        await asyncio.Future()  # Run this forever. (until you shut it down or end it Ctrl-C, at which point the context manager will close your connection)
 
 # This line uses the asyncio packages run command to run the main function. By wrapping the main function in the asyncio.run function, the async and await commands
 # mean something to python, since they are ingested by the asyncio library. Otherwise python wouldn't know what the heck they were.
