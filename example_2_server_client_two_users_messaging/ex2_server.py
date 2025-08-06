@@ -17,17 +17,38 @@ async def handle_client(websocket):
                 if client != websocket:
                     await client.send(message)
     except websockets.exceptions.ConnectionClosedError:
-        print(f"ConnectionClosedError — client dropped.")
+        print("ConnectionClosedError — client dropped.")
     except websockets.exceptions.ConnectionClosedOK:
-        print(f"Client disconnected normally.")
+        print("Client disconnected normally.")
     finally:
         connected_clients.discard(websocket)
         print(f"Cleaned up client connection. -- Clients online: {len(connected_clients)}")
 
+async def shutdown():
+    print("Shutting down server...")
+
+    for client in connected_clients.copy():
+        await client.close()
+        connected_clients.discard(client)
+
+    print("All client connections closed.")
+
 async def main():
-    async with websockets.serve(handle_client, "localhost", 12345):
-        print("Server running on ws://localhost:12345")
-        await asyncio.Future()  # run forever
+    server = await websockets.serve(handle_client, "localhost", 12345)
+    print("Server running on ws://localhost:12345 — Press Ctrl+C to stop.")
+
+    try:
+        await asyncio.Future()  # Runs forever until interrupted
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt detected.")
+    finally:
+        await shutdown()
+        server.close()
+        await server.wait_closed()
+        print("Server shutdown complete.")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nForce exit before startup completed.")

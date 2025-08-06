@@ -2,7 +2,7 @@
 
 import asyncio
 import websockets
-import aioconsole
+import aioconsole # <-- this is like asyncio but for inputs, it makes it so we dont hang and wait for input
 
 async def receive_messages(websocket):
     try:
@@ -19,7 +19,7 @@ async def chat():
             try:
                 while True:
                     msg = await aioconsole.ainput("You: ")
-                    if msg.lower() == "/quit":
+                    if msg.lower() == "/quit": # <-- a command to quit the chat for the user you can only find by reading the code
                         print("Disconnecting from chat...")
                         await websocket.close()  # <-- clean disconnection
                         break
@@ -34,7 +34,7 @@ async def chat():
                 except asyncio.CancelledError:
                     pass
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print(f"Unexpected error: {e}") # <-- this catches all weird shit so we can handle it. as you can see I needed it above to handle ctrl-c properly.
 
 if __name__ == "__main__":
     try:
