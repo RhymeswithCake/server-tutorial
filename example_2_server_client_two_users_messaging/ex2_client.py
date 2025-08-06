@@ -12,6 +12,12 @@ async def receive_messages(websocket):
         print("\nServer disconnected.")
 
 async def chat():
+    # Some trivia: URL stands for Uniform Resource Locator, which tells you where something is located, like a website
+    # -- URN stands for Uniform Resource Name, which tells you somethings name but not where it is
+    # -- URI stands for Uniform Resource Identifier, which identifies a resource in a system (or on the internet)
+    # -- URI is the umbrella term, it can be either a URN or a URL
+    # -- A URL is a special type of URI that tells your the identification of a resource and also where and how to find it
+    # -- A URN is a special type of URI that tells you the name of a resource but not its location, like a guid, or a book's ISBN number.
     uri = "ws://localhost:12345"
     try:
         async with websockets.connect(uri) as websocket:
@@ -34,7 +40,7 @@ async def chat():
                 except asyncio.CancelledError:
                     pass
     except Exception as e:
-        print(f"Unexpected error: {e}") # <-- this catches all weird shit so we can handle it. as you can see I needed it above to handle ctrl-c properly.
+        print(f"Unexpected error: {e}") # <-- this catches all weird shit and prints it out so we can handle it. as you can see I needed it above to handle ctrl-c properly.
 
 if __name__ == "__main__":
     try:
